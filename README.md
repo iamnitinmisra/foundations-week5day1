@@ -8,6 +8,8 @@
 4. create a variable called app and set its value equal to express invoked
 5. Set your server up to accept JSON object responses
 6. Set your express server to listen to requests on port 4000
+7. Create a get request for the endpoint '/api/users' that sends an array of your friends to the front end
+8. Start your server up using the nodemon command in your terminal
 
 ## Detailed Instructions
 
@@ -55,15 +57,7 @@
    app.listen(4000, () => console.log("Server running on port 4000"));
    ```
 
-8. Use the nodemon command in your terminal to get your new server listening on port 4000
-
-   - in terminal, use the command
-
-   ```
-   nodemon server/index
-   ```
-
-9. finally we will create our endpoint and method to handle sending the friends back to the front end
+8. finally we will create our endpoint and method to handle sending the friends back to the front end
 
    - add this line BEFORE 'app.listen'
 
@@ -72,4 +66,12 @@
      let friends = ["Nitin", "Eric", "Jeddy", "Cameron", "Riley"];
      res.status(200).send(friends);
    });
+   ```
+
+9. Use the nodemon command in your terminal to get your new server listening on port 4000
+
+   - in terminal, use the command
+
+   ```
+   nodemon server/index
    ```
