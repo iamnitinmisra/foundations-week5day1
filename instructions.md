@@ -62,3 +62,14 @@
    ```
    nodemon server/index
    ```
+
+9. finally we will create our endpoint and method to handle sending the friends back to the front end
+
+   - add this line BEFORE 'app.listen'
+
+   ```js
+   app.get("/api/users", (req, res) => {
+     let friends = ["Nitin", "Eric", "Jeddy", "Cameron", "Riley"];
+     res.status(200).send(friends);
+   });
+   ```
