@@ -18,7 +18,6 @@
         .get("http://localhost:4000/api/users")
         .then(function (response) {
           const data = response.data;
-          console.log(data);
           document.getElementById("people").innerHTML = data
             .map(function (person) {
               return '<li class="row">' + person;
