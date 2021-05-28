@@ -17,23 +17,33 @@
 
 2. inside the 'server' folder, create a javascript file named 'index.js'
 
-3. in order to get our server working we will need to use Node Package Manager to install a package called 'Express'
+3. in order to get our server working we will need to use Node Package Manager to install two packages.
 
-   - open up your terminal window and install express using the command
+   - open up your terminal window and install express and cors using the command
 
    ```
-   npm i express
+   npm i express cors
    ```
 
 4. We will need to import the express package into our index.js file next
 
-   - inside index.js import express
+   - inside index.js, import express
 
    ```js
    const express = require("express");
    ```
 
-5. Next, for simplicity, we will create a variable called app and set it equal to the invocation of express
+5. import the cors pacakge next, similar to how you imported express
+
+   - inside index.js, import cors
+
+   ```js
+   const cors = require("cors");
+   ```
+
+   Note: cors is a package that allows our client and server to communicate with each other without the need for advanced configuration
+
+6. Next, to avoid repeating lengthy code, we will create a variable called app that we will reuse to initialize express commands. Set app equal to the invocation of express
 
    - on the next line, set the invocation of 'express' equal to a variable called 'app'
 
@@ -41,7 +51,7 @@
    const app = express();
    ```
 
-6. We would like to accept and use JSON objects in our server's responses, so let's do that.
+7. We would like to accept and use JSON objects in our server's responses, so let's do that.
 
    - on the next line, use the 'use' method from express to invoke express.json
 
@@ -49,17 +59,9 @@
    app.use(express.json());
    ```
 
-7. Finally, we will tell express to set up to listen on port 4000
+8. We will create first endpoint and method to handle sending a friends array back to the client (front end)
 
-   - on the next line, set your express server up to listen to requests on port 4000
-
-   ```js
-   app.listen(4000, () => console.log("Server running on port 4000"));
-   ```
-
-8. finally we will create our endpoint and method to handle sending the friends back to the front end
-
-   - add this line BEFORE 'app.listen'
+   - on the next line create the follow GET endpoint and method as follows:
 
    ```js
    app.get("/api/users", (req, res) => {
@@ -68,10 +70,41 @@
    });
    ```
 
-9. Use the nodemon command in your terminal to get your new server listening on port 4000
+9. Let's add another endpoint and method that will tell us how the weather is today
 
-   - in terminal, use the command
+   - on the next line, create another GET endpoint and method as follows:
 
+   ```js
+   app.get("/weather/:temperature", (req, res) => {
+     const phrase = `<h3>It was ${req.params.temperature} today</h3>`;
+     res.status(200).send(phrase);
+   });
    ```
-   nodemon server/index
+
+   With object destructuring, we can make the above code a little easier to read
+
+   ```js
+   app.get("/weather/:temperature", (req, res) => {
+      const { temperature } = req.params;
+      const phrase = `<h3>It was ${temperature} today</h3>`
+      res.status(200).send(phrase)
+   }
    ```
+
+10. Let's now tell express to set our server up to listen on port 4000
+
+    - on the next line, set your express server up to listen to requests on port 4000
+
+    ```js
+    app.listen(4000, () => console.log("Server running on port 4000"));
+    ```
+
+11. Use the nodemon command in your terminal to get your new server listening on port 4000
+
+    - in terminal, use the command
+
+    ```
+    nodemon server/index
+    ```
+
+12. Launch the index.html file in your browser and test out your endpoints by clicking the "GET Friends List" button or by navigating to either http://localhost:4000/weather/hot or to http://localhost:4000/weather/cold
